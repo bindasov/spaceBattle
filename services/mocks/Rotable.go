@@ -9,57 +9,38 @@ type Rotable struct {
 	mock.Mock
 }
 
-// GetAngularVelocity provides a mock function with given fields:
-func (_m *Rotable) GetAngularVelocity() int {
-	ret := _m.Called()
+// GetProperty provides a mock function with given fields: key
+func (_m *Rotable) GetProperty(key string) (interface{}, error) {
+	ret := _m.Called(key)
 
-	var r0 int
-	if rf, ok := ret.Get(0).(func() int); ok {
-		r0 = rf()
+	var r0 interface{}
+	if rf, ok := ret.Get(0).(func(string) interface{}); ok {
+		r0 = rf(key)
 	} else {
-		r0 = ret.Get(0).(int)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(interface{})
+		}
 	}
 
-	return r0
-}
-
-// GetDirection provides a mock function with given fields:
-func (_m *Rotable) GetDirection() int {
-	ret := _m.Called()
-
-	var r0 int
-	if rf, ok := ret.Get(0).(func() int); ok {
-		r0 = rf()
+	var r1 error
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(key)
 	} else {
-		r0 = ret.Get(0).(int)
+		r1 = ret.Error(1)
 	}
 
-	return r0
+	return r0, r1
 }
 
-// GetDirectionsNumber provides a mock function with given fields:
-func (_m *Rotable) GetDirectionsNumber() int {
-	ret := _m.Called()
+// SetProperty provides a mock function with given fields: key, p
+func (_m *Rotable) SetProperty(key string, p interface{}) error {
+	ret := _m.Called(key, p)
 
-	var r0 int
-	if rf, ok := ret.Get(0).(func() int); ok {
-		r0 = rf()
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string, interface{}) error); ok {
+		r0 = rf(key, p)
 	} else {
-		r0 = ret.Get(0).(int)
-	}
-
-	return r0
-}
-
-// SetDirection provides a mock function with given fields: d
-func (_m *Rotable) SetDirection(d int) int {
-	ret := _m.Called(d)
-
-	var r0 int
-	if rf, ok := ret.Get(0).(func(int) int); ok {
-		r0 = rf(d)
-	} else {
-		r0 = ret.Get(0).(int)
+		r0 = ret.Error(0)
 	}
 
 	return r0
