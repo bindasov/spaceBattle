@@ -1,10 +1,12 @@
 package space_battle
 
 import (
-	"github.com/stretchr/testify/require"
-	"spaceBattle/adapters/mocks"
-	"spaceBattle/models"
 	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/bindasov/spaceBattle/adapters/mocks"
+	"github.com/bindasov/spaceBattle/models"
 )
 
 func TestSpaceship_Execute(t *testing.T) {

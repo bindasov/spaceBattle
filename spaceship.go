@@ -1,8 +1,8 @@
 package space_battle
 
 import (
-	"spaceBattle/adapters"
-	"spaceBattle/models"
+	"github.com/bindasov/spaceBattle/adapters"
+	"github.com/bindasov/spaceBattle/models"
 )
 
 type spaceship struct {

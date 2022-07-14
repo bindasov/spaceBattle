@@ -1,11 +1,13 @@
 package adapters
 
 import (
-	"github.com/stretchr/testify/require"
-	"spaceBattle/models"
-	"spaceBattle/services"
-	"spaceBattle/services/mocks"
 	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/bindasov/spaceBattle/models"
+	"github.com/bindasov/spaceBattle/services"
+	"github.com/bindasov/spaceBattle/services/mocks"
 )
 
 func TestMovableAdapter_GetPosition(t *testing.T) {

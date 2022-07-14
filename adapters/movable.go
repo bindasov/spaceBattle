@@ -2,8 +2,9 @@ package adapters
 
 import (
 	"math"
-	"spaceBattle/models"
-	"spaceBattle/services"
+
+	"github.com/bindasov/spaceBattle/models"
+	"github.com/bindasov/spaceBattle/services"
 )
 
 type MovableAdapter interface {
