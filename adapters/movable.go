@@ -10,7 +10,7 @@ import (
 type MovableAdapter interface {
 	GetPosition() (*models.Vector, error)
 	GetVelocity() (*models.Vector, error)
-	SetPosition(*models.Vector) error
+	SetPosition(position *models.Vector) error
 }
 
 func NewMovable(movable services.Movable, rotable services.Rotable) MovableAdapter {
