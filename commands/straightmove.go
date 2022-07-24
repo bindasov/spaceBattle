@@ -24,7 +24,7 @@ func (c *straightMoveCommand) Execute() error {
 	if err := c.checkFuelCommand.Execute(); err != nil {
 		return CommandException
 	}
-	_, err := c.moveCommand.Execute()
+	err := c.moveCommand.Execute()
 	if err != nil {
 		return CommandException
 	}
