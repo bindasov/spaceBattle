@@ -6,7 +6,7 @@ import (
 
 type DoubleRepeatCommand interface {
 	Execute() error
-	Set(command commands.StraightMoveCommand)
+	CacheCommand(command commands.StraightMoveCommand)
 }
 
 func NewDoubleRepeatCommand() DoubleRepeatCommand {
@@ -26,6 +26,6 @@ func (drc *doubleRepeatCommand) Execute() error {
 	}
 	return nil
 }
-func (drc *doubleRepeatCommand) Set(command commands.StraightMoveCommand) {
+func (drc *doubleRepeatCommand) CacheCommand(command commands.StraightMoveCommand) {
 	drc.command = command
 }

@@ -45,7 +45,7 @@ func TestStraightMoveCommand_Execute(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			checkFuelMock := mocks.NewCheckFuelCommand(t)
 			burnFuelMock := mocks.NewBurnFuelCommand(t)
-			moveMock := mocks.NewMoveCommand(t)
+			moveMock := &mocks.MoveCommand{}
 			straightMove := NewStraightMove(checkFuelMock, burnFuelMock, moveMock)
 
 			deps := &deps{

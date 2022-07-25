@@ -6,7 +6,7 @@ import (
 
 type RepeatCommand interface {
 	Execute() error
-	Set(command commands.StraightMoveCommand)
+	CacheCommand(command commands.StraightMoveCommand)
 }
 
 func NewRepeatCommand() RepeatCommand {
@@ -24,6 +24,6 @@ func (rc *repeatCommand) Execute() error {
 	}
 	return nil
 }
-func (rc *repeatCommand) Set(command commands.StraightMoveCommand) {
+func (rc *repeatCommand) CacheCommand(command commands.StraightMoveCommand) {
 	rc.command = command
 }

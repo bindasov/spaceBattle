@@ -39,8 +39,7 @@ func TestSpaceship_Execute(t *testing.T) {
 				deps.movableAdapterMock.On("GetPosition").Return(currentPosition, nil)
 				deps.movableAdapterMock.On("GetVelocity").Return(velocity, nil)
 				deps.movableAdapterMock.On("SetPosition", desiredPosition).Return(nil)
-				result, err := deps.moveCommand.Execute()
-				require.Equal(t, desiredPosition, result)
+				err := deps.moveCommand.Execute()
 				require.NoError(t, err)
 			},
 		},

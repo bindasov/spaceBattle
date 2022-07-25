@@ -6,15 +6,14 @@ import (
 
 type DoubleRepeatStrategy interface {
 	Execute()
+	CacheCommand(command commands.StraightMoveCommand)
 }
 
 func NewDoubleRepeatStrategy(
-	command commands.StraightMoveCommand,
 	log LogCommand,
 	doubleRepeatCommand DoubleRepeatCommand,
 ) DoubleRepeatStrategy {
 	doubleRepeatStrategy := &doubleRepeatStrategy{
-		command:             command,
 		log:                 log,
 		doubleRepeatCommand: doubleRepeatCommand,
 	}
@@ -29,10 +28,14 @@ type doubleRepeatStrategy struct {
 
 func (s *doubleRepeatStrategy) Execute() {
 	if err := s.command.Execute(); err != nil {
-		s.doubleRepeatCommand.Set(s.command)
+		s.doubleRepeatCommand.CacheCommand(s.command)
 		if err := s.doubleRepeatCommand.Execute(); err != nil {
 			s.log.SetError(err)
 			s.log.Execute()
 		}
 	}
+}
+
+func (s *doubleRepeatStrategy) CacheCommand(command commands.StraightMoveCommand) {
+	s.command = command
 }

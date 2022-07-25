@@ -1,16 +1,17 @@
 package exceptionstask
 
-import "container/list"
+import (
+	"container/list"
+)
 
 type RepeatHandler interface {
 	Handle()
+	CacheCommand(command RepeatCommand)
 	CacheQueue(queue *list.List)
 }
 
-func NewRepeatExceptionHandler(command RepeatCommand) RepeatHandler {
-	repeatHandler := &repeatHandler{
-		command: command,
-	}
+func NewRepeatHandler() RepeatHandler {
+	repeatHandler := &repeatHandler{}
 	return repeatHandler
 }
 
@@ -25,4 +26,8 @@ func (rh *repeatHandler) Handle() {
 
 func (rh *repeatHandler) CacheQueue(queue *list.List) {
 	rh.queue = queue
+}
+
+func (rh *repeatHandler) CacheCommand(command RepeatCommand) {
+	rh.command = command
 }

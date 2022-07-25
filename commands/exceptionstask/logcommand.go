@@ -9,7 +9,7 @@ type LogCommand interface {
 	SetError(err error)
 }
 
-func NewLogCommand(log logger.Logger, err error) LogCommand {
+func NewLogCommand(log logger.Logger) LogCommand {
 	logCommand := &logCommand{
 		log: log,
 	}

@@ -6,7 +6,7 @@ import (
 
 type LogExceptionHandler interface {
 	Handle()
-	CacheCommand(command logCommand)
+	CacheCommand(command LogCommand)
 	CacheQueue(queue *list.List)
 }
 
@@ -16,7 +16,7 @@ func NewLogExceptionHandler() LogExceptionHandler {
 }
 
 type logExceptionHandler struct {
-	logCommand logCommand
+	logCommand LogCommand
 	queue      *list.List
 }
 
@@ -24,7 +24,7 @@ func (eh *logExceptionHandler) Handle() {
 	eh.queue.PushBack(eh.logCommand)
 }
 
-func (eh *logExceptionHandler) CacheCommand(command logCommand) {
+func (eh *logExceptionHandler) CacheCommand(command LogCommand) {
 	eh.logCommand = command
 }
 

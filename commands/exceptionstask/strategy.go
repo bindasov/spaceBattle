@@ -29,7 +29,7 @@ type strategy struct {
 
 func (s *strategy) Execute() {
 	if err := s.command.Execute(); err != nil {
-		s.repeatCommand.Set(s.command)
+		s.repeatCommand.CacheCommand(s.command)
 		if err := s.repeatCommand.Execute(); err != nil {
 			s.log.SetError(err)
 			s.log.Execute()
