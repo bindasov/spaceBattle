@@ -1,4 +1,4 @@
-package space_battle
+package main
 
 import (
 	"github.com/bindasov/spaceBattle/commands"
