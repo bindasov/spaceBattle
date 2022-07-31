@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"github.com/bindasov/spaceBattle/models"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -23,9 +22,8 @@ func TestStraightMoveCommand_Execute(t *testing.T) {
 		{
 			name: "success",
 			handler: func(t *testing.T, deps *deps) {
-				position := &models.Vector{}
 				deps.checkFuelMock.On("Execute").Return(nil)
-				deps.moveMock.On("Execute").Return(position, nil)
+				deps.moveMock.On("Execute").Return(nil)
 				deps.burnFuelMock.On("Execute").Return(nil)
 				err := deps.straightMove.Execute()
 				require.Nil(t, err)
