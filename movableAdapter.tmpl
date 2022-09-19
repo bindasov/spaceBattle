@@ -1,0 +1,26 @@
+package adapters
+
+import (
+    "github.com/bindasov/spaceBattle/models"
+    "github.com/bindasov/ioc/ioc"
+    )
+
+
+func NewUObject(adapter MovableAdapter) *UObject {
+	obj := &UObject{
+		obj: adapter,
+	}
+	return obj
+}
+
+type UObject struct {
+	obj MovableAdapter
+	ioc *ioc.IoC
+}
+
+{{range . -}}
+    func (m *UObject) {{.Name.Action}}{{.Name.Property}}({{if eq .Name.Action `Set`}}value{{end}}{{.InputParam}}){{.Output}}{
+        {{if eq .Name.Action `Get`}}return {{end}}m.ioc.Resolve("IMovable:{{.Name.Property}}.{{.Name.Action}}", m.obj{{if eq .Name.Action `Set`}}, value{{end}}){{if eq .Name.Action `Get`}}.({{.Output}}){{end}}
+    }
+{{end -}}
+

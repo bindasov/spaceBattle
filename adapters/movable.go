@@ -8,9 +8,9 @@ import (
 )
 
 type MovableAdapter interface {
-	GetPosition() (*models.Vector, error)
-	GetVelocity() (*models.Vector, error)
-	SetPosition(position *models.Vector) error
+	GetPosition() *models.Vector
+	GetVelocity() *models.Vector
+	SetPosition(position *models.Vector)
 }
 
 func NewMovable(movable services.Movable, rotable services.Rotable) MovableAdapter {
@@ -26,46 +26,28 @@ type movableAdapter struct {
 	rotable services.Rotable
 }
 
-func (m *movableAdapter) GetPosition() (*models.Vector, error) {
-	value, err := m.movable.GetProperty("Position")
-	if err != nil {
-		return nil, services.PositionPropertyNotFound
-	}
-	position, ok := value.(*models.Vector)
-	if ok == false {
-		return nil, services.PositionPropertyConversionError
-	}
-	return position, nil
+func (m *movableAdapter) GetPosition() *models.Vector {
+	value, _ := m.movable.GetProperty("Position")
+	position, _ := value.(*models.Vector)
+	return position
 }
 
-func (m *movableAdapter) GetVelocity() (*models.Vector, error) {
-	direction, err := m.getDirection()
-	if err != nil {
-		return nil, err
-	}
+func (m *movableAdapter) GetVelocity() *models.Vector {
+	direction, _ := m.getDirection()
 
-	directionsNumber, err := m.getDirectionsNumber()
-	if err != nil {
-		return nil, err
-	}
+	directionsNumber, _ := m.getDirectionsNumber()
 
-	velocityValue, err := m.getVelocity()
-	if err != nil {
-		return nil, err
-	}
+	velocityValue, _ := m.getVelocity()
 
 	return &models.Vector{
 		X: int(float64(velocityValue) * math.Cos(float64(direction)/float64(360*directionsNumber))),
 		Y: int(float64(velocityValue) * math.Sin(float64(direction)/float64(360*directionsNumber))),
-	}, nil
+	}
 }
 
-func (m *movableAdapter) SetPosition(position *models.Vector) error {
+func (m *movableAdapter) SetPosition(position *models.Vector) {
 	var pos interface{} = position
-	if err := m.movable.SetProperty("Position", pos); err != nil {
-		return services.PositionPropertySetError
-	}
-	return nil
+	_ = m.movable.SetProperty("Position", pos)
 }
 
 func (m *movableAdapter) getDirection() (int, error) {
