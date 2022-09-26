@@ -19,20 +19,12 @@ type moveCommand struct {
 }
 
 func (m *moveCommand) Execute() error {
-	currentPosition, err := m.movableAdapter.GetPosition()
-	if err != nil {
-		return err
-	}
+	currentPosition := m.movableAdapter.GetPosition()
 
-	velocity, err := m.movableAdapter.GetVelocity()
-	if err != nil {
-		return err
-	}
+	velocity := m.movableAdapter.GetVelocity()
 
 	newPosition := m.sumVectors(currentPosition, velocity)
-	if err := m.movableAdapter.SetPosition(newPosition); err != nil {
-		return err
-	}
+	m.movableAdapter.SetPosition(newPosition)
 	return nil
 }
 

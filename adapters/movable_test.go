@@ -25,9 +25,8 @@ func TestMovableAdapter_GetPosition(t *testing.T) {
 			handler: func(t *testing.T, deps *deps) {
 				deps.movableMock.On("GetProperty", "Position").Return(nil,
 					services.PositionPropertyNotFound)
-				position, err := deps.movableAdapter.GetPosition()
+				position := deps.movableAdapter.GetPosition()
 				require.Nil(t, position)
-				require.Errorf(t, err, services.PositionPropertyNotFound.Error())
 			},
 		},
 	}
@@ -68,9 +67,8 @@ func TestMovableAdapter_GetVelocity(t *testing.T) {
 				deps.rotableMock.On("GetProperty", "DirectionsNumber").Return(directionsNumber, nil)
 				deps.movableMock.On("GetProperty", "Velocity").Return(nil,
 					services.VelocityPropertyNotFound)
-				velocity, err := deps.movableAdapter.GetVelocity()
+				velocity := deps.movableAdapter.GetVelocity()
 				require.Nil(t, velocity)
-				require.Errorf(t, err, services.VelocityPropertyNotFound.Error())
 			},
 		},
 	}
@@ -108,8 +106,7 @@ func TestMovableAdapter_SetPosition(t *testing.T) {
 				var position interface{} = &models.Vector{}
 				deps.movableMock.On("SetProperty", "Position", position).
 					Return(services.PositionPropertySetError)
-				err := deps.movableAdapter.SetPosition(&models.Vector{})
-				require.Errorf(t, err, services.PositionPropertySetError.Error())
+				deps.movableAdapter.SetPosition(&models.Vector{})
 			},
 		},
 	}
