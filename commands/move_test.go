@@ -1,4 +1,4 @@
-package space_battle
+package commands
 
 import (
 	"testing"
@@ -12,7 +12,7 @@ import (
 func TestSpaceship_Execute(t *testing.T) {
 	type deps struct {
 		movableAdapterMock *mocks.MovableAdapter
-		spaceship          spaceship
+		moveCommand        MoveCommand
 	}
 	tests := []struct {
 		name    string
@@ -39,7 +39,7 @@ func TestSpaceship_Execute(t *testing.T) {
 				deps.movableAdapterMock.On("GetPosition").Return(currentPosition, nil)
 				deps.movableAdapterMock.On("GetVelocity").Return(velocity, nil)
 				deps.movableAdapterMock.On("SetPosition", desiredPosition).Return(nil)
-				result, err := deps.spaceship.Execute()
+				result, err := deps.moveCommand.Execute()
 				require.Equal(t, desiredPosition, result)
 				require.NoError(t, err)
 			},
@@ -49,11 +49,11 @@ func TestSpaceship_Execute(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			movableAdapterMock := mocks.NewMovableAdapter(t)
-			spaceship := spaceship{movableAdapter: movableAdapterMock}
+			moveCommand := NewMove(movableAdapterMock)
 
 			deps := &deps{
 				movableAdapterMock: movableAdapterMock,
-				spaceship:          spaceship,
+				moveCommand:        moveCommand,
 			}
 
 			tc.handler(t, deps)
