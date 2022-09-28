@@ -6,7 +6,7 @@ import (
 )
 
 type MoveCommand interface {
-	Execute() (*models.Vector, error)
+	Execute() error
 }
 
 func NewMove(movableAdapter adapters.MovableAdapter) MoveCommand {
@@ -18,22 +18,22 @@ type moveCommand struct {
 	movableAdapter adapters.MovableAdapter
 }
 
-func (m *moveCommand) Execute() (*models.Vector, error) {
+func (m *moveCommand) Execute() error {
 	currentPosition, err := m.movableAdapter.GetPosition()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	velocity, err := m.movableAdapter.GetVelocity()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	newPosition := m.sumVectors(currentPosition, velocity)
 	if err := m.movableAdapter.SetPosition(newPosition); err != nil {
-		return nil, err
+		return err
 	}
-	return newPosition, nil
+	return nil
 }
 
 func (m *moveCommand) sumVectors(vec1 *models.Vector, vec2 *models.Vector) *models.Vector {
