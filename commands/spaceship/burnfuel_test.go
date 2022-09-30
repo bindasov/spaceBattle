@@ -1,13 +1,13 @@
-package commands
+package spaceship
 
 import (
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
-func TestCheckFuelCommand_Execute(t *testing.T) {
+func TestBurnFuelCommand_Execute(t *testing.T) {
 	type deps struct {
-		command CheckFuelCommand
+		command BurnFuelCommand
 	}
 	tests := []struct {
 		name    string
@@ -20,19 +20,11 @@ func TestCheckFuelCommand_Execute(t *testing.T) {
 				require.NoError(t, err)
 			},
 		},
-		{
-			name: "command error",
-			handler: func(t *testing.T, deps *deps) {
-				deps.command.SetLeftover(0)
-				err := deps.command.Execute()
-				require.Errorf(t, err, CheckFuelCommandException.Error())
-			},
-		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			commandMock := NewCheckFuel(5, 5)
+			commandMock := NewBurnFuel(5, 5)
 
 			deps := &deps{
 				command: commandMock,

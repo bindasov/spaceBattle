@@ -1,10 +1,8 @@
 package base
 
-type Command interface {
-	Execute() error
-}
+import "github.com/bindasov/spaceBattle/commands"
 
-func NewCommand() Command {
+func NewCommand() commands.Command {
 	command := &command{}
 	return command
 }

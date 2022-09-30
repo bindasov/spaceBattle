@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"container/list"
-	"github.com/bindasov/spaceBattle/commands/exceptionstask/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/repeat"
 )
 
-func NewRepeatHandler(command *commands.RepeatCommand, queue *list.List) *RepeatHandler {
+func NewRepeatHandler(command *repeat.RepeatCommand, queue *list.List) *RepeatHandler {
 	repeatHandler := &RepeatHandler{
 		command: command,
 		queue:   queue,
@@ -14,7 +14,7 @@ func NewRepeatHandler(command *commands.RepeatCommand, queue *list.List) *Repeat
 }
 
 type RepeatHandler struct {
-	command *commands.RepeatCommand
+	command *repeat.RepeatCommand
 	queue   *list.List
 }
 
