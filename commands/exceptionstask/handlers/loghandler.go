@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"container/list"
-	"github.com/bindasov/spaceBattle/commands/exceptionstask/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/repeat"
 )
 
-func NewLogHandler(logCommand *commands.LogCommand, queue *list.List) *logHandler {
+func NewLogHandler(logCommand *repeat.LogCommand, queue *list.List) *logHandler {
 	logHandler := &logHandler{
 		logCommand: logCommand,
 		queue:      queue,
@@ -14,7 +14,7 @@ func NewLogHandler(logCommand *commands.LogCommand, queue *list.List) *logHandle
 }
 
 type logHandler struct {
-	logCommand *commands.LogCommand
+	logCommand *repeat.LogCommand
 	queue      *list.List
 }
 

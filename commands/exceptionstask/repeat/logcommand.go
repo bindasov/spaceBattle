@@ -1,4 +1,4 @@
-package commands
+package repeat
 
 import "github.com/bindasov/spaceBattle/logger"
 

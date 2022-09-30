@@ -1,4 +1,4 @@
-package commands
+package spaceship
 
 type StraightMoveCommand interface {
 	Execute() error

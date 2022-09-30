@@ -1,4 +1,4 @@
-package commands
+package repeat
 
 import (
 	"errors"
@@ -10,10 +10,10 @@ import (
 	commandMock "github.com/bindasov/spaceBattle/commands/exceptionstask/base/mocks"
 )
 
-func TestDoubleRepeatCommand_Execute(t *testing.T) {
+func TestRepeatCommand_Execute(t *testing.T) {
 	type deps struct {
-		command             *commandMock.Command
-		doubleRepeatCommand *DoubleRepeatCommand
+		command       *commandMock.Command
+		repeatCommand *RepeatCommand
 	}
 	tests := []struct {
 		name    string
@@ -23,7 +23,7 @@ func TestDoubleRepeatCommand_Execute(t *testing.T) {
 			name: "success",
 			handler: func(t *testing.T, deps *deps) {
 				deps.command.On("Execute").Return(nil)
-				err := deps.doubleRepeatCommand.Execute()
+				err := deps.repeatCommand.Execute()
 
 				require.NoError(t, err)
 			},
@@ -33,9 +33,9 @@ func TestDoubleRepeatCommand_Execute(t *testing.T) {
 			handler: func(t *testing.T, deps *deps) {
 				executeErr := errors.New("error")
 				deps.command.On("Execute").Return(executeErr)
-				err := deps.doubleRepeatCommand.Execute()
+				err := deps.repeatCommand.Execute()
 
-				require.Errorf(t, err, base.DoubleRepeatCommandError.Error())
+				require.Errorf(t, err, base.RepeatCommandError.Error())
 			},
 		},
 	}
@@ -43,11 +43,11 @@ func TestDoubleRepeatCommand_Execute(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			command := &commandMock.Command{}
-			doubleRepeatCommand := NewDoubleRepeatCommand(command)
+			repeatCommand := NewRepeatCommand(command)
 
 			deps := &deps{
-				command:             command,
-				doubleRepeatCommand: doubleRepeatCommand,
+				command:       command,
+				repeatCommand: repeatCommand,
 			}
 
 			tc.handler(t, deps)

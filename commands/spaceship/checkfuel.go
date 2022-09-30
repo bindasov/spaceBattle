@@ -1,4 +1,4 @@
-package commands
+package spaceship
 
 type CheckFuelCommand interface {
 	Execute() error

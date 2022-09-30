@@ -1,18 +1,17 @@
-package commands
+package spaceship
 
 import (
+	mocks2 "github.com/bindasov/spaceBattle/commands/spaceship/mocks"
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	"github.com/bindasov/spaceBattle/commands/mocks"
 )
 
 func TestStraightMoveCommand_Execute(t *testing.T) {
 	type deps struct {
-		checkFuelMock *mocks.CheckFuelCommand
-		burnFuelMock  *mocks.BurnFuelCommand
-		moveMock      *mocks.MoveCommand
+		checkFuelMock *mocks2.CheckFuelCommand
+		burnFuelMock  *mocks2.BurnFuelCommand
+		moveMock      *mocks2.MoveCommand
 		straightMove  StraightMoveCommand
 	}
 	tests := []struct {
@@ -41,9 +40,9 @@ func TestStraightMoveCommand_Execute(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			checkFuelMock := mocks.NewCheckFuelCommand(t)
-			burnFuelMock := mocks.NewBurnFuelCommand(t)
-			moveMock := &mocks.MoveCommand{}
+			checkFuelMock := mocks2.NewCheckFuelCommand(t)
+			burnFuelMock := mocks2.NewBurnFuelCommand(t)
+			moveMock := &mocks2.MoveCommand{}
 			straightMove := NewStraightMove(checkFuelMock, burnFuelMock, moveMock)
 
 			deps := &deps{

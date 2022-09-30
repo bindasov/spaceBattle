@@ -1,8 +1,11 @@
-package commands
+package repeat
 
-import "github.com/bindasov/spaceBattle/commands/exceptionstask/base"
+import (
+	"github.com/bindasov/spaceBattle/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/base"
+)
 
-func NewDoubleRepeatCommand(command base.Command) *DoubleRepeatCommand {
+func NewDoubleRepeatCommand(command commands.Command) *DoubleRepeatCommand {
 	doubleRepeatCommand := &DoubleRepeatCommand{
 		command: command,
 	}
@@ -10,7 +13,7 @@ func NewDoubleRepeatCommand(command base.Command) *DoubleRepeatCommand {
 }
 
 type DoubleRepeatCommand struct {
-	command base.Command
+	command commands.Command
 }
 
 func (rc *DoubleRepeatCommand) Execute() error {

@@ -1,4 +1,4 @@
-package commands
+package spaceship
 
 import (
 	"errors"

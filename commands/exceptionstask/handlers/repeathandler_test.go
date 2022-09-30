@@ -3,7 +3,7 @@ package handlers
 import (
 	"container/list"
 	"github.com/bindasov/spaceBattle/commands/exceptionstask/base"
-	"github.com/bindasov/spaceBattle/commands/exceptionstask/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/repeat"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -12,7 +12,7 @@ import (
 func TestRepeatHandler_Handle(t *testing.T) {
 	type deps struct {
 		queue         *list.List
-		repeatCommand *commands.RepeatCommand
+		repeatCommand *repeat.RepeatCommand
 		handler       *RepeatHandler
 	}
 	tests := []struct {
@@ -33,7 +33,7 @@ func TestRepeatHandler_Handle(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			command := base.NewCommand()
 			queue := &list.List{}
-			repeatCommand := commands.NewRepeatCommand(command)
+			repeatCommand := repeat.NewRepeatCommand(command)
 			handler := NewRepeatHandler(repeatCommand, queue)
 
 			deps := &deps{

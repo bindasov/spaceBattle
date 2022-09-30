@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"container/list"
-	"github.com/bindasov/spaceBattle/commands/exceptionstask/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/repeat"
 	"github.com/bindasov/spaceBattle/logger"
 	"testing"
 
@@ -12,7 +12,7 @@ import (
 func TestLogHandler_Handle(t *testing.T) {
 	type deps struct {
 		queue      *list.List
-		logCommand *commands.LogCommand
+		logCommand *repeat.LogCommand
 		handler    *logHandler
 	}
 	tests := []struct {
@@ -33,7 +33,7 @@ func TestLogHandler_Handle(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			config := &logger.Config{Level: "info"}
 			commandLogger, _ := logger.InitLogger(config)
-			logCommand := commands.NewLogCommand(commandLogger)
+			logCommand := repeat.NewLogCommand(commandLogger)
 			queue := &list.List{}
 			handler := NewLogHandler(logCommand, queue)
 

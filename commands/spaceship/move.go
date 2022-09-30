@@ -1,4 +1,4 @@
-package commands
+package spaceship
 
 import (
 	"github.com/bindasov/spaceBattle/adapters"

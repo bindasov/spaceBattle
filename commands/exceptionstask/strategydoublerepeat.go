@@ -2,9 +2,10 @@ package exceptionstask
 
 import (
 	"container/list"
+	"github.com/bindasov/spaceBattle/commands"
 
 	"github.com/bindasov/spaceBattle/commands/exceptionstask/base"
-	"github.com/bindasov/spaceBattle/commands/exceptionstask/commands"
+	"github.com/bindasov/spaceBattle/commands/exceptionstask/repeat"
 	"github.com/bindasov/spaceBattle/logger"
 )
 
@@ -22,8 +23,8 @@ func RunDoubleRepeat() {
 
 	// creating commands
 
-	logCommand := commands.NewLogCommand(log)
-	doubleRepeatCommand := commands.NewDoubleRepeatCommand(command)
+	logCommand := repeat.NewLogCommand(log)
+	doubleRepeatCommand := repeat.NewDoubleRepeatCommand(command)
 
 	// pushing double repeat command to queue
 
@@ -32,10 +33,10 @@ func RunDoubleRepeat() {
 	// executing commands from queue
 
 	for e := queue.Front(); e != nil; e = e.Next() {
-		v := (e.Value).(base.Command)
+		v := (e.Value).(commands.Command)
 		err := v.Execute()
 
-		if _, ok := (e.Value).(*commands.DoubleRepeatCommand); err != nil && ok {
+		if _, ok := (e.Value).(*repeat.DoubleRepeatCommand); err != nil && ok {
 			logCommand.SetError(base.DoubleRepeatCommandError)
 			_ = logCommand.Execute()
 		}
